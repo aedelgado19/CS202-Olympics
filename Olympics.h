@@ -4,7 +4,7 @@
    for the following classes: Sport, Track 
    (track and field), Tennis, VB (volleyball),
    BST, B_Node, LLL, and L_Node.
-   The athletes will be storesd in a BST.
+   The athletes will be stored in a BST.
 
    Last updated: Aug 5, 2021
  */
@@ -21,15 +21,15 @@ public:
   Sport(const Sport & source);
   void read();
   void display() const;
-  bool compare(char* d); //compare date
-  bool compare(char* t); //compare time
+  bool compare_d(char* d); //compare date
+  bool compare_t(char* t); //compare time
 
-  Sport operator == (const Sport &);
-  Sport operator != (const Sport &);
+  //  Sport operator == (const Sport &);
+  //  Sport operator != (const Sport &);
 private:
   char* date; //represented in 6 digits (mm/dd/yy)
   char* time; //represented in 4 digits (hh/mm)
-  std::vector<std::string> skills;
+  std::string skills;
   std::string history;
   int medals;
 };
@@ -38,10 +38,9 @@ private:
 class Track : public Sport {
 public:
   Track();
-  ~Track();
   void read();
   void display();
-
+  void change_event(int dist);
   
 private:
   std::string athlete_name;
@@ -53,7 +52,9 @@ class Tennis : public Sport {
 public:
   Tennis();
   ~Tennis();
+  void read();
   void display();
+  void change_type();
 private:
   int type; //1 = singles tennis, 2 = doubles tennis
   std::string athlete_name;
@@ -65,14 +66,14 @@ public:
   VB();
   ~VB();
   void display();
-
+  void read();
   VB operator += (const VB &);
 private:
   std::vector<std::string> players;
 };
 
 // ***************** DATA STRUCTURE CLASSES **************
-
+/*
 class BST {
 public:
   BST();
@@ -85,15 +86,15 @@ public:
   void display();
   void remove_all();
 
-  L_Node operator + (const L_Node &) const;
-  L_Node operator = (const L_Node &);
+  L_Node operator + (const B_Node &) const;
+  L_Node operator = (const B_Node &);
 
 private:
   //recursive versions:
   void insert(B_Node *& current, B_Node *& to_add);
   void remove(B_Node *& current, B_Node *& to_remove);
   void display(B_Node * current);
-  void remove_all(A_Node *& current);
+  void remove_all(B_Node *& current);
   B_Node * root;
 };
 
@@ -106,8 +107,8 @@ public:
   B_Node *& go_right();
   void set_next(B_Node * node);
 
-  bool operator == (const L_Node &) const;
-  bool operator != (const L_Node&) const;
+  bool operator == (const B_Node &) const;
+  bool operator != (const B_Node &) const;
 
 private:
   B_Node * left;
@@ -149,6 +150,7 @@ private:
   //recursive versions:
   void remove(L_Node *& cur, std::string to_remove);
   void display(L_Node * cur);
-  void remove_all(L_node *& cur);
+  void remove_all(L_Node *& cur);
   L_Node * head;
 };
+*/
