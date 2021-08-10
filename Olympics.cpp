@@ -82,6 +82,7 @@ void Sport::display() const{
   std::cout << "MEDALS: " << medals << std::endl;
 }
 
+//compare the date
 bool Sport::compare_d(char* d){
   if(strcmp(d, date) == 0){
     return true;
@@ -89,6 +90,7 @@ bool Sport::compare_d(char* d){
   return false;
 }
 
+//compare the time
 bool Sport::compare_t(char* t){
   if(strcmp(t, time) == 0){
     return true;
@@ -96,8 +98,19 @@ bool Sport::compare_t(char* t){
   return false;
 }
 
-//Sport operator == (const Sport &);
-//Sport operator != (const Sport &);
+//overload ==
+bool Sport::operator == (const Sport & sport){
+  return (strcmp(date, sport.date) == 0) &&
+    (strcmp(time, sport.time) == 0) && (skills == sport.skills)
+    && (history == sport.history) && (medals == sport.medals);
+}
+
+//overload !=
+bool Sport::operator != (const Sport & sport){
+ return (strcmp(date, sport.date) != 0) &&
+    (strcmp(time, sport.time) != 0) && (skills != sport.skills)
+    && (history != sport.history) && (medals != sport.medals);
+}
 //TRACK AND FIELD CLASS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 //initialization list

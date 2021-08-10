@@ -24,8 +24,8 @@ public:
   bool compare_d(char* d); //compare date
   bool compare_t(char* t); //compare time
 
-  //  Sport operator == (const Sport &);
-  //  Sport operator != (const Sport &);
+  bool operator == (const Sport &);
+  bool operator != (const Sport &);
 private:
   char* date; //represented in 6 digits (mm/dd/yy)
   char* time; //represented in 4 digits (hh/mm)
@@ -73,53 +73,12 @@ private:
 };
 
 // ***************** DATA STRUCTURE CLASSES **************
-/*
-class BST {
-public:
-  BST();
-  ~BST();
-  BST(const BST & source);
-
-  //wrapper functions:
-  void insert(B_Node & to_add);
-  void remove(B_Node *& to_remove);
-  void display();
-  void remove_all();
-
-  L_Node operator + (const B_Node &) const;
-  L_Node operator = (const B_Node &);
-
-private:
-  //recursive versions:
-  void insert(B_Node *& current, B_Node *& to_add);
-  void remove(B_Node *& current, B_Node *& to_remove);
-  void display(B_Node * current);
-  void remove_all(B_Node *& current);
-  B_Node * root;
-};
-
-//each node in the BST is a B_Node
-class B_Node {
-public:
-  B_Node();
-  B_Node(const LLL & source);
-  B_Node *& go_left();
-  B_Node *& go_right();
-  void set_next(B_Node * node);
-
-  bool operator == (const B_Node &) const;
-  bool operator != (const B_Node &) const;
-
-private:
-  B_Node * left;
-  B_Node * right;
-};
 
 //each node in the LLL is an L_Node
 class L_Node {
 public:
   L_Node();
-  L_Node(const Athlete & source);
+  L_Node(const Sport & source);
   L_Node *& go_next();
   void set_next(L_Node *& n);
 
@@ -153,4 +112,46 @@ private:
   void remove_all(L_Node *& cur);
   L_Node * head;
 };
-*/
+
+//each node in the BST is a B_Node
+class B_Node {
+public:
+  B_Node();
+  B_Node(const LLL & source);
+  B_Node *& go_left();
+  B_Node *& go_right();
+  void set_next(B_Node * node);
+
+  bool operator == (const B_Node &) const;
+  bool operator != (const B_Node &) const;
+
+private:
+  B_Node * left;
+  B_Node * right;
+};
+
+
+class BST {
+public:
+  BST();
+  ~BST();
+  BST(const BST & source);
+
+  //wrapper functions:
+  void insert(B_Node & to_add);
+  void remove(B_Node *& to_remove);
+  void display();
+  void remove_all();
+
+  L_Node operator + (const B_Node &) const;
+  L_Node operator = (const B_Node &);
+
+private:
+  //recursive versions:
+  void insert(B_Node *& current, B_Node *& to_add);
+  void remove(B_Node *& current, B_Node *& to_remove);
+  void display(B_Node * current);
+  void remove_all(B_Node *& current);
+  B_Node * root;
+};
+
