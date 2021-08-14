@@ -6,7 +6,7 @@
    BST, B_Node, LLL, and L_Node.
    The athletes will be stored in a BST.
 
-   Last updated: Aug 5, 2021
+   Last updated: Aug 14, 2021
  */
 
 #include <iostream>
@@ -24,8 +24,12 @@ public:
   bool compare_d(char* d); //compare date
   bool compare_t(char* t); //compare time
 
+  std::ostream & operator << (std::ostream &);
+  friend std::istream & operator >> (std::istream &, std::string& s);
   bool operator == (const Sport &);
   bool operator != (const Sport &);
+  Sport & operator = (const Sport &);
+  Sport & operator += (int); //add medals
 private:
   char* date; //represented in 6 digits (mm/dd/yy)
   char* time; //represented in 4 digits (hh/mm)
@@ -51,7 +55,6 @@ private:
 class Tennis : public Sport {
 public:
   Tennis();
-  ~Tennis();
   void read();
   void display();
   void change_type();
@@ -64,10 +67,10 @@ private:
 class VB : public Sport {
 public:
   VB();
-  ~VB();
   void display();
   void read();
-  VB operator += (const VB &);
+  void add_players(std::vector<std::string> p);
+  void remove_players(std::vector<std::string> to_remove);
 private:
   std::vector<std::string> players;
 };
@@ -103,8 +106,8 @@ public:
   void remove_all();
 
   L_Node operator + (const L_Node &) const;
-  L_Node operator = (const L_Node &);
-  L_Node operator [] (const L_Node &);
+  L_Node& operator = (const L_Node &);
+  L_Node& operator [] (const L_Node &) const;
 private:
   //recursive versions:
   void remove(L_Node *& cur, std::string to_remove);
@@ -117,41 +120,50 @@ private:
 class B_Node {
 public:
   B_Node();
-  B_Node(const LLL & source);
   B_Node *& go_left();
   B_Node *& go_right();
-  void set_next(B_Node * node);
-
+  void set_left(B_Node * node);
+  void set_right(B_Node * node);
+  std::string & compare_name();
+  void change_name(std::string n);
+  
   bool operator == (const B_Node &) const;
   bool operator != (const B_Node &) const;
+  bool operator < (const char*);
+  bool operator <= (const char*);
+  bool operator > (const char*);
+  bool operator >= (const char*);
 
 private:
+  std::string name;
   B_Node * left;
   B_Node * right;
 };
 
-
+//binary search tree class
 class BST {
 public:
   BST();
   ~BST();
-  BST(const BST & source);
+  //  BST(const BST & source);
 
   //wrapper functions:
-  void insert(B_Node & to_add);
+  void insert(B_Node *& to_add);
   void remove(B_Node *& to_remove);
   void display();
   void remove_all();
 
-  L_Node operator + (const B_Node &) const;
-  L_Node operator = (const B_Node &);
+  B_Node & operator + (const B_Node &);
+  B_Node & operator = (const B_Node &);
 
 private:
   //recursive versions:
-  void insert(B_Node *& current, B_Node *& to_add);
-  void remove(B_Node *& current, B_Node *& to_remove);
-  void display(B_Node * current);
-  void remove_all(B_Node *& current);
+  void insert(B_Node *& cur, B_Node *& to_add);
+  void remove(B_Node *& cur, B_Node *& to_remove);
+  void display(B_Node * cur, int d);
+  B_Node* destruct(B_Node *& cur);
+  //  B_Node* clone(B_Node & source, B_Node & dest);
+  void find_smallest(B_Node *, B_Node *&);
   B_Node * root;
 };
 

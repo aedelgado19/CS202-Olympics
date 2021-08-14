@@ -16,8 +16,9 @@ using namespace std;
 void track();
 
 int main(){
-  //so far only has Track
+  //so far only has Track and BST
   cout << "Welcome to the Olympics! " << endl;
+
   track();
 }
 
