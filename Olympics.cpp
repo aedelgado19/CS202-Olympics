@@ -336,17 +336,6 @@ B_Node* BST::destruct(B_Node *& cur){
   return nullptr;
 }
 
-//copy constructor calls recursive clone
-/*BST::BST(const BST & source){
-  B_Node * temp = new B_Node;
-  root = temp;
-  clone(source.root, temp);
-}
-
-B_Node* BST::clone(B_Node & source, B_Node & dest){
-
-}*/
-
 //insert node wrapper
 void BST::insert(B_Node *& to_add){
   insert(root, to_add);
@@ -464,12 +453,138 @@ void BST::display(B_Node * cur, int d){
   display(cur->go_left(), d + 1);
 }
 
-/*
-B_Node & BST::operator + (const B_Node & node){
+// L_Node Class ------------------------------------------
+
+//constructor
+L_Node::L_Node() : next(nullptr), sport(nullptr){
+  
+}
+
+//go next
+L_Node *& L_Node::go_next(){
+  return next;
+}
+
+//set next
+void L_Node::set_next(L_Node *& n){
+  next = n;
+}
+
+//set sport
+void L_Node::set_sport(Sport * s){
+  sport = s;
+}
+
+//used for comparing sports
+Sport * L_Node::compare_sport(){
+  return sport;
+}
+
+//overload == operator
+bool L_Node::operator == (const L_Node & l) const {
+  return (next == l.next);
+}
+
+//overload != operator
+bool L_Node::operator != (const L_Node & l) const{
+  return (next != l.next);
+}
+
+// LLL class ----------------------------------------------
+//constructor
+LLL::LLL() : head(nullptr){
 
 }
 
-B_Node & BST::operator = (const B_Node & node){
-
+//copy constructor
+LLL::LLL(const LLL & source){
+  cp(head, source.head);
 }
-*/
+
+//recursive copy
+void LLL::cp(L_Node * cur, L_Node * source){
+  if(!source->go_next()) { //last node
+    cur = new L_Node(*source);
+  } else {
+    cur = new L_Node(*source);
+    cp(cur->go_next(), source->go_next());
+  }
+}
+
+//destructor
+LLL::~LLL(){
+  destruct(head);
+}
+
+//recursive destruct
+void LLL::destruct(L_Node *& cur){
+  if(!cur) return;
+  L_Node * temp = cur->go_next();
+  delete cur;
+  destruct(temp);
+}
+
+//insert
+void LLL::insert(L_Node & to_add){
+  if(!head){
+    head = &to_add;
+  } else {
+    to_add.set_next(head);
+    head = &to_add;
+  }
+}
+
+//wrapper remove
+void LLL::remove(L_Node *& r){
+  if(!head) return;
+  remove(head, r);
+}
+
+//recursive remove
+void LLL::remove(L_Node *& cur, L_Node *& r){
+  if(!cur) return;
+  if(cur->go_next() == r){
+    cur->set_next(cur->go_next()->go_next());
+    delete cur->go_next();
+    return;
+  }
+  remove(cur->go_next(), r);
+}
+
+//wrapper display
+void LLL::display(){
+  display(head);
+}
+
+//recursive display
+void LLL::display(L_Node * cur){
+  if(!cur) return;
+  std::cout << cur->compare_sport() << std::endl;
+  display(cur->go_next());
+}
+
+//wrapper remove all
+void LLL::remove_all(){
+  destruct(head);
+}
+
+//overload + operator
+L_Node& LLL::operator + (L_Node & to_add){
+  if(!head){
+    head = &to_add;
+  } else {
+    to_add.set_next(head);
+    head = &to_add;
+  }
+  return to_add;
+}
+
+//overload [] operator
+L_Node & LLL::operator [] (int index) const {
+  L_Node * current = head;
+  for(int i = 0; i < index; i++){
+    current = current->go_next();
+  }
+  return *current;
+}
+

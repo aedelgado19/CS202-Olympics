@@ -84,11 +84,15 @@ public:
   L_Node(const Sport & source);
   L_Node *& go_next();
   void set_next(L_Node *& n);
-
+  void set_sport(Sport * s);
+  Sport *compare_sport();
+  
+  L_Node & operator = (const L_Node &);
   bool operator == (const L_Node &) const;
   bool operator != (const L_Node&) const;
   
 private:
+  Sport * sport;
   L_Node * next;
 };
 
@@ -101,18 +105,20 @@ public:
 
   //wrapper functions:
   void insert(L_Node & to_add);
-  void remove(L_Node *& to_remove);
+  void remove(L_Node *& r);
   void display();
   void remove_all();
 
-  L_Node operator + (const L_Node &) const;
+  L_Node& operator + (L_Node &);
   L_Node& operator = (const L_Node &);
-  L_Node& operator [] (const L_Node &) const;
+  L_Node& operator [] (int index) const;
 private:
   //recursive versions:
-  void remove(L_Node *& cur, std::string to_remove);
+  void remove(L_Node *& cur, L_Node *& to_remove);
   void display(L_Node * cur);
   void remove_all(L_Node *& cur);
+  void cp(L_Node * cur, L_Node * source);
+  void destruct(L_Node *&);
   L_Node * head;
 };
 
