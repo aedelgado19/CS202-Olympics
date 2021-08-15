@@ -150,17 +150,14 @@ Track::Track() : athlete_name(""), distance(0){
 }
 
 //read in info
-void Track::read(){
-  std::string name;
+void Track::read(std::string n){
   int meters = 0;
   
-  std::cout << "What is the name of this track athlete? " << std::endl;
-  std::getline(std::cin, name);
   std::cout << "How many meters is the event they are competing in?" << std::endl;
   std::cin >> meters;
   std::cin.get();
 
-  athlete_name = name;
+  athlete_name = n;
   distance = meters;
   Sport::read();
 }
@@ -185,13 +182,10 @@ Tennis::Tennis() : type(0), athlete_name(""){
 }
 
 //read in data
-void Tennis::read(){
+void Tennis::read(std::string name){
   std::string n;
   int t = 0;
   
-  std::cout << "What is the this athlete's name?" << std::endl;
-  std::cout << "> ";
-  std::getline(std::cin, n);
   std::cout << "Which type of match are they competing in?" << std::endl;
   std::cout << "1 - singles" << std::endl;
   std::cout << "2 - doubles" << std::endl;
@@ -240,7 +234,7 @@ void VB::display(){
 }
 
 //read data
-void VB::read(){
+void VB::read(std::string n){
   int a = 0;
   std::string name;
   
@@ -254,6 +248,7 @@ void VB::read(){
     std::getline(std::cin, name);
     players.push_back(name);
   }
+  team_name = n;
   Sport::read();
 }
 
@@ -334,6 +329,11 @@ B_Node* BST::destruct(B_Node *& cur){
     return cur;
   }
   return nullptr;
+}
+
+//wrapper remove
+void BST::remove(std::string name){
+  remove(root);
 }
 
 //insert node wrapper
@@ -451,6 +451,11 @@ void BST::display(B_Node * cur, int d){
   std::cout << cur->compare_name() << std::endl;
 
   display(cur->go_left(), d + 1);
+}
+
+//remove all
+void BST::remove_all(){
+  destruct(root);
 }
 
 // L_Node Class ------------------------------------------

@@ -42,7 +42,7 @@ private:
 class Track : public Sport {
 public:
   Track();
-  void read();
+  void read(std::string);
   void display();
   void change_event(int dist);
   
@@ -55,7 +55,7 @@ private:
 class Tennis : public Sport {
 public:
   Tennis();
-  void read();
+  void read(std::string);
   void display();
   void change_type();
 private:
@@ -68,10 +68,11 @@ class VB : public Sport {
 public:
   VB();
   void display();
-  void read();
+  void read(std::string);
   void add_players(std::vector<std::string> p);
   void remove_players(std::vector<std::string> to_remove);
 private:
+  std::string team_name;
   std::vector<std::string> players;
 };
 
@@ -151,11 +152,11 @@ class BST {
 public:
   BST();
   ~BST();
-  //  BST(const BST & source);
 
   //wrapper functions:
   void insert(B_Node *& to_add);
-  void remove(B_Node *& to_remove);
+  void remove(B_Node *& to_remove); //remove by node
+  void remove(std::string); //remove by name
   void display();
   void remove_all();
 

@@ -13,10 +13,11 @@
 #define START 5;
 using namespace std;
 
-void track(Track & tr);
-void tennis(Tennis & tn);
-void volleyball(VB & vb);
+void track(BST& bst, Track & tr);
+void tennis(BST& bst, Tennis & tn);
+void volleyball(BST & bst, VB & vb);
 void choices();
+void ds(BST & bst);
 
 int main(){
   cout << "Welcome to the Olympics! " << endl;
@@ -35,24 +36,63 @@ void choices(){
   cout << "1 - Track and Field "<< endl;
   cout << "2 - Tennis" << endl;
   cout << "3 - Volleyball" << endl;
+  cout << "4 - Data structure testing " << endl;
   cout << "> ";
   cin >> choice;
   cin.get();
 
   if(choice == 1){
-    track(tr);
+    track(bst, tr);
   } else if (choice == 2){
-    tennis(tn);
+    tennis(bst, tn);
   } else if (choice == 3){
-    volleyball(vb);
+    volleyball(bst, vb);
+  } else if(choice == 4){
+    ds(bst);
   } else {
     cout << "That was not one of the choices. Quitting program." << endl;
     return;
   }
 }
 
+//data structure testing
+void ds(BST & bst){
+  int choice;
+  string name;
+  
+  cout << "Select an option: " << endl;
+  cout << "1 - remove a node " << endl;
+  cout << "2 - display the tree " << endl;
+  cout << "3 - remove all nodes" << endl;
+  cout << "4 - go back" << endl;
+  cout << " " << endl;
+  cout << "(note that you can only add a node by " << endl;
+  cout << " selecting to go back and adding in a specific sport)" << endl;
+  cout << " " << endl;
+  cout << "> ";
+  cin >> choice;
+  cin.get();
+
+  if(choice == 1){
+    cout << "What is the name of the athlete you would like to remove?" << endl;
+    cout << "> ";
+    getline(cin, name);
+    bst.remove(name);
+    choices();
+  } else if(choice == 2){
+    bst.display();
+    choices();
+  } else if(choice == 3){
+    bst.remove_all();
+    choices();
+  } else if(choice == 4){
+    choices();
+  }
+  
+}
+
 //track choices
-void track(Track & tr){
+void track(BST & bst, Track & tr){
   int choice = START;
   int meters = 0;
 
@@ -68,7 +108,14 @@ void track(Track & tr){
     cin.get();
 
     if(choice == 1){
-      tr.read();
+      string name;
+      cout << "What is the name of this track athlete? " << endl;
+      cout << "> ";
+      getline(cin, name);
+      tr.read(name);
+      B_Node * b = new B_Node;
+      b->change_name(name);
+      bst.insert(b);
     } else if(choice == 2){
       tr.display();
     } else if(choice == 3){
@@ -87,7 +134,7 @@ void track(Track & tr){
 }
 
 //Tennis choices
-void tennis(Tennis & tn){
+void tennis(BST & bst, Tennis & tn){
   int choice = START;
   do {
     cout << " " << endl;
@@ -101,7 +148,14 @@ void tennis(Tennis & tn){
     cin.get();
     
     if(choice == 1){
-      tn.read();
+      string name;
+      cout << "What is the name of this athlete? " << endl;
+      cout << "> ";
+      getline(cin, name);
+      tn.read(name);
+      B_Node * b = new B_Node;
+      b->change_name(name);
+      bst.insert(b);
     } else if (choice == 2){
       tn.display();
     } else if (choice == 3){
@@ -115,7 +169,7 @@ void tennis(Tennis & tn){
 }
 
 //VB choices
-void volleyball(VB & vb){
+void volleyball(BST & bst, VB & vb){
   int choice = START;
   do {
     cout << " " << endl;
@@ -130,7 +184,14 @@ void volleyball(VB & vb){
     cin.get();
     
     if(choice == 1){
-      vb.read();
+      string name;
+      cout << "What is the name of this volleyball team? " << endl;
+      cout << "> ";
+      getline(cin, name);
+      vb.read(name);
+      B_Node * b = new B_Node;
+      b->change_name(name);
+      bst.insert(b);
     } else if (choice == 2){
       vb.display();
     } else if (choice == 3){
