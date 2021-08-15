@@ -210,6 +210,7 @@ void Tennis::display(){
   if(type == 1) std::cout << "singles tennis " << std::endl;
   else std::cout << "doubles tennis " << std::endl;
   std::cout << "ATHLETE NAME: " << athlete_name << std::endl;
+  Sport::display();
 }
 
 //change from either singles to doubles or vice versa
@@ -234,7 +235,8 @@ void VB::display(){
   std::cout << "Players: " << std::endl;
   for(std::vector<std::string>::iterator i = players.begin(); i!=players.end(); ++i){
     std::cout << (*i) << std::endl;
-  }  
+  }
+  Sport::display();
 }
 
 //read data
@@ -252,6 +254,7 @@ void VB::read(){
     std::getline(std::cin, name);
     players.push_back(name);
   }
+  Sport::read();
 }
 
 //add players to vector
